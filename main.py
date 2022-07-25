@@ -1,23 +1,22 @@
 import math
-
+import random
 import pygame
 from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
     QUIT,
 )
-from pygame import gfxdraw
 pygame.init()
 
-SCREEN_WIDTH = 1024 #
+SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 512
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pygame.display.set_caption("Raycasting :)")
 
 FPS = 60
 
-px = 300
-py = 300
+px = SCREEN_WIDTH/2 /2 + 20
+py = SCREEN_HEIGHT/2 + 20
 tx = px #teleport values - for collisions with no jankiness
 ty = py
 velocity = 3
@@ -25,7 +24,7 @@ pa = math.pi
 rot_speed = 0.05
 pfov = math.pi / 3
 
-rays = 60
+rays = 120
 
 mapX = 8
 mapY = 8
@@ -42,7 +41,23 @@ map2D = \
 [1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
+def generate_map():
+    new_map = [[]]
+    for r in range(map2D.__len__()):
+        new_row = []
+        for c in range(map2D[r].__len__()):
+            if r == 0 or c == 0 or r == map2D.__len__()-1 or c == map2D[r].__len__()-1:
+                new_row.append(1)
+            elif r == map2D.__len__()/2 and c == map2D[r].__len__()/2: #starting point
+                new_row.append(0)
+            else:
+                new_row.append(random.randint(0,1))
+        new_map.append(new_row)
+    print_map(new_map)
+    return  new_map
+
 def main():
+    global map2D
     clock = pygame.time.Clock()
     run = True
     draw_window()
@@ -51,6 +66,9 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 run = False
+            # if event.type == KEYDOWN and event.key == ord('r'):
+            #     map2D = generate_map()
+            #     print_map(map2D)
 
         key_pressed = pygame.key.get_pressed()
         check_WASD(key_pressed)
@@ -78,12 +96,12 @@ def draw_map2D():
             v4 = (x_scale + map_scale - 1, y_scale + 1)
             pygame.draw.polygon(screen, color, [v1, v2, v3, v4]) # polygon for cute inverted color grid :)
 
-def print_map():  # when debugging tells u that u messed up its so depressing
-    for x in range(mapX):
+def print_map(p_map):  # when debugging tells u that u messed up its so depressing
+    for x in range(p_map.__len__()):
         print()
-        for y in range(mapY):
-            print(map2D[x][y], end = " ")
-print_map()
+        for y in range(p_map[x].__len__()):
+            print(p_map[x][y], end = " ")
+# print_map(map2D)
 
 def check_WASD(key_pressed):
     global px, py, pa
