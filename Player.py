@@ -18,6 +18,7 @@ class Player:
         pygame.draw.circle(screen, (255, 255, 0), (self.x, self.y), self.radius)
         pygame.draw.line(screen, (255, 255, 0), (self.x, self.y),
                          (self.x - math.sin(self.angle) * 25, self.y + math.cos(self.angle) * 25), 3)
+        self.draw_fov(screen)
 
     def draw_fov(self, screen):
         pygame.draw.line(screen, (240, 100, 90), (self.x, self.y),
