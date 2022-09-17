@@ -6,6 +6,8 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
 )
+import Player
+import Map
 pygame.init()
 
 SCREEN_WIDTH = 1024
