@@ -110,12 +110,17 @@ def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
     line_width = SCREEN_WIDTH/2 / num_rays
 
     # black and white shader
-    line_color_unit = 1/(max(1, ray_dist * ray_dist * 0.00011)) * 255
+    line_color_unit = 1/(max(1, ray_dist * ray_dist * 0.000106)) * 255
     if ray_dist <= 1:
         line_color_unit = 0
     line_color = (line_color_unit, line_color_unit, line_color_unit)
 
-    pygame.draw.rect(screen, line_color, pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, (SCREEN_HEIGHT/2) - (line_height/2), line_width +1, line_height))
+    wall_rect = pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, (SCREEN_HEIGHT/2) - (line_height/2), line_width +1, line_height)
+    pygame.draw.rect(screen, line_color, wall_rect)
+    ceiling_rect = pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, 0, line_width+1, (SCREEN_HEIGHT/2) - (line_height/2))
+    pygame.draw.rect(screen, c_aqua, ceiling_rect)
+    floor_rect = pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, (SCREEN_HEIGHT/2) + (line_height/2) - 1, line_width+1, (SCREEN_HEIGHT/2) - (line_height/2)+1)
+    pygame.draw.rect(screen, c_gray, floor_rect)
 
 
 def draw_window():
