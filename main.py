@@ -99,8 +99,12 @@ def raycast(player, curr_map, num_rays):
         curr_angle += player.fov / num_rays
 
 def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
-    current_angle = max(0, min(player.angle-ray_angle, 2*math.pi)) # current angle between 0 and 2pi
-    ray_dist *= math.cos(current_angle)
+    current_angle = player.angle - ray_angle
+    if current_angle > 2*math.pi:
+        current_angle -= 2*math.pi
+    if current_angle < 2*math.pi:
+        current_angle += 2*math.pi
+    ray_dist *= math.cos(current_angle) #fisheye correction
 
     line_height = min((curr_map.scale * 320/max(1, ray_dist)), 320)
     line_width = SCREEN_WIDTH/2 / num_rays
