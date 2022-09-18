@@ -38,6 +38,7 @@ game_map = Map.Map(
 game_map.generate()
 
 async def main():
+    pygame.event.set_allowed([QUIT, KEYDOWN, K_ESCAPE])
     clock = pygame.time.Clock()
     run = True
     draw_window()
@@ -55,8 +56,6 @@ async def main():
         game_map.draw(screen)
         p.draw(screen)
         raycast(p, game_map, RAYS)
-
-        pygame.display.flip()
 
         await asyncio.sleep(0)
 
@@ -107,7 +106,7 @@ def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
     line_width = SCREEN_WIDTH/2 / num_rays
 
     # black and white shader
-    line_color_unit = 1/(max(1, ray_dist * ray_dist * 0.00008)) * 255
+    line_color_unit = 1/(max(1, ray_dist * ray_dist * 0.00011)) * 255
     if ray_dist <= 1:
         line_color_unit = 0
     line_color = (line_color_unit, line_color_unit, line_color_unit)
