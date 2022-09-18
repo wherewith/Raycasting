@@ -37,6 +37,7 @@ game_map = Map.Map(
 )
 game_map.generate()
 
+
 async def main():
     pygame.event.set_allowed([QUIT, KEYDOWN, K_ESCAPE])
     clock = pygame.time.Clock()
@@ -56,6 +57,7 @@ async def main():
         game_map.draw(screen)
         p.draw(screen)
         raycast(p, game_map, RAYS)
+        draw_borders()
 
         await asyncio.sleep(0)
 
@@ -74,6 +76,7 @@ def handle_input(player, key_pressed):
         player.y -= math.cos(player.angle) * player.velocity
     if key_pressed[ord('d')]:
         player.angle += player.turn_speed
+
 
 def raycast(player, curr_map, num_rays):
     curr_angle = player.angle - player.fov/2 # current angle of ray being cast
@@ -98,6 +101,7 @@ def raycast(player, curr_map, num_rays):
                 break
         curr_angle += player.fov / num_rays
 
+
 def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
     current_angle = player.angle - ray_angle
     if current_angle > 2*math.pi:
@@ -119,7 +123,6 @@ def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
     pygame.draw.rect(screen, wall_color, wall_rect)
     pygame.draw.rect(screen, c_gray, floor_rect)
 
-
 def shade(color, dist):
     shade_unit = 1 / (max(1, dist ** 2 * 0.00005))
     if dist <= 1:
@@ -128,8 +131,12 @@ def shade(color, dist):
     return shaded_color
 
 
+def draw_borders():
+    pygame.draw.rect(screen, c_background, pygame.Rect(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, (SCREEN_HEIGHT - 320) / 2))
+    pygame.draw.rect(screen, c_background, pygame.Rect(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 320/2 - 1, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 320/2))
+
 def draw_window():
-    screen.fill((138,145,143))
+    screen.fill(c_background)
 
 
 asyncio.run(main()) #keep at program end
