@@ -1,4 +1,5 @@
 import math
+import asyncio
 import pygame
 from pygame.locals import (
     K_ESCAPE,
@@ -36,7 +37,7 @@ game_map = Map.Map(
 )
 game_map.generate()
 
-def main():
+async def main():
     clock = pygame.time.Clock()
     run = True
     draw_window()
@@ -56,6 +57,9 @@ def main():
         raycast(p, game_map, RAYS)
 
         pygame.display.flip()
+
+        await asyncio.sleep(0)
+
     pygame.quit()
 
 
@@ -115,5 +119,4 @@ def draw_window():
     screen.fill((138,145,143))
 
 
-if __name__ == "__main__":
-    main()
+asyncio.run(main()) #keep at program end
