@@ -1,4 +1,5 @@
 import pygame
+from Named_Colors import *
 
 class Map:
     def __init__(self, s, scale):
@@ -29,9 +30,9 @@ class Map:
     def draw(self, screen):
         for r in range(self.map2D.__len__()):
             for c in range(self.map2D[r].__len__()):
-                color = pygame.Color((255, 255, 255))
+                color = pygame.Color(c_silver)
                 if self.map2D[c][r] == 0:  # hate this array
-                    color = pygame.Color((0, 0, 0))
+                    color = pygame.Color(c_gray)
                 x_scale = r * self.scale
                 y_scale = c * self.scale
                 v1 = (x_scale + 1, y_scale + 1)

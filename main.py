@@ -8,6 +8,7 @@ from pygame.locals import (
 )
 import Player
 import Map
+from Named_Colors import *
 pygame.init()
 
 SCREEN_WIDTH = 1024
@@ -15,7 +16,7 @@ SCREEN_HEIGHT = 512
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pygame.display.set_caption('Raycasting')
 my_font = pygame.font.SysFont('Calibri', 50, bold = True)
-pygame.display.set_icon(my_font.render('γ', True, (0,150,50)))
+pygame.display.set_icon(my_font.render('γ', True, c_aqua))
 
 FPS = 60
 RAYS = 120
@@ -35,7 +36,6 @@ game_map = Map.Map(
     scale = 64
 )
 game_map.generate()
-
 
 def main():
     clock = pygame.time.Clock()
@@ -82,7 +82,7 @@ def raycast(player, curr_map, num_rays):
             r = int(x/curr_map.scale)
             c = int(y/curr_map.scale)
             if curr_map.map2D[c][r] == 1:
-                pygame.draw.line(screen, (0, 255, 255), (player.x, player.y), (x, y))
+                pygame.draw.line(screen, c_aqua, (player.x, player.y), (x, y))
                 ray_dist = math.dist([player.x, player.y], [x, y]) # distance between player position and raycast point
 
                 draw3D(player, curr_map, ray, curr_angle, ray_dist, num_rays)
@@ -111,9 +111,9 @@ def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
 
     pygame.draw.rect(screen, line_color, pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, (SCREEN_HEIGHT/2) - (line_height/2), line_width +1, line_height))
 
-    
+
 def draw_window():
-    screen.fill((125,125,125))
+    screen.fill((138,145,143))
 
 
 if __name__ == "__main__":
