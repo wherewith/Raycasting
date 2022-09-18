@@ -119,4 +119,4 @@ def draw_window():
     screen.fill((138,145,143))
 
 
-asyncio.run(main())
+asyncio.run(main()) #keep at program end
