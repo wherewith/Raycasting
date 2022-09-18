@@ -83,9 +83,11 @@ def raycast(player, curr_map, num_rays):
             c = int(y/curr_map.scale)
             if curr_map.map2D[c][r] == 1:
                 pygame.draw.line(screen, (0, 255, 255), (player.x, player.y), (x, y))
-                total_dist = math.dist([player.x, player.y], [x, y])
-                # draw3D(pa, ca, ray, total_dist)
-                if total_dist <= 1:
+                ray_dist = math.dist([player.x, player.y], [x, y]) # distance between player position and raycast point
+
+                draw3D(player, curr_map, ray, curr_angle, ray_dist, num_rays)
+
+                if ray_dist <= 1:
                     player.x = player.tx
                     player.y = player.ty
                 else:
@@ -94,6 +96,22 @@ def raycast(player, curr_map, num_rays):
                 break
         curr_angle += player.fov / num_rays
 
+def draw3D(player, curr_map, curr_ray, ray_angle, ray_dist, num_rays):
+    current_angle = max(0, min(player.angle-ray_angle, 2*math.pi)) # current angle between 0 and 2pi (?) unsure if necessary
+    ray_dist *= math.cos(current_angle)
+
+    line_height = min((curr_map.scale * 320/max(1, ray_dist)), 320)
+    line_width = SCREEN_WIDTH/2 / num_rays
+
+    # black and white shader
+    line_color_unit = 1/(max(1, ray_dist * ray_dist * 0.00008)) * 255
+    if ray_dist <= 1:
+        line_color_unit = 0
+    line_color = (line_color_unit, line_color_unit, line_color_unit)
+
+    pygame.draw.rect(screen, line_color, pygame.Rect(SCREEN_HEIGHT+curr_ray*line_width, (SCREEN_HEIGHT/2) - (line_height/2), line_width +1, line_height))
+
+    
 def draw_window():
     screen.fill((125,125,125))
 
