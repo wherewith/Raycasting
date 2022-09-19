@@ -26,6 +26,12 @@ class Map:
                     [1, 0, 0, 0, 0, 0, 0, 1],
                     [1, 1, 1, 1, 1, 1, 1, 1]
                 ]
+        else:
+            self.generate_random()
+
+    def generate_random(self):
+        #TODO generate random map
+        print("Hi")
 
     def draw(self, screen):
         for r in range(self.map2D.__len__()):
