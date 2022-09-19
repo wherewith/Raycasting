@@ -1,0 +1,16 @@
+name: python
+on: push
+jobs:
+  test_env:
+    environment: TEST_SECRET
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+    - name: run tests
+      run: python -c 'import os;print(os.environ)'
+      env:
+        UN: ${{ secrets.UN }}
+        PASS: ${{ secrets.PASS }}
