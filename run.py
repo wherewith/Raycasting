@@ -23,6 +23,17 @@ def upload():
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
     driver.get("https://itch.io")
     driver.implicitly_wait(0.5)
+    
+    #Xpath=//tagname[@attribute='value']
+
+    login_field = driver.find_element(by=By.XPATH, value="//a[@data-label = 'log_in']")
+    login_field.click()
+    driver.implicitly_wait(0.5)
+
+    github_login_field = driver.find_element(by=By.XPATH, value="//button[@class = 'button outline github_login_btn']")
+    github_login_field.click()
+    driver.implicitly_wait(0.25)
+
 
 def main():
     # zip_build()
