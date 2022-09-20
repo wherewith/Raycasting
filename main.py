@@ -92,7 +92,7 @@ def raycast(player, curr_map, num_rays):
 
                 draw3D(player, curr_map, ray, curr_angle, ray_dist, num_rays)
 
-                if ray_dist <= 1:
+                if ray_dist <= 1: #TODO replace teleport jankiness
                     player.x = player.tx
                     player.y = player.ty
                 else:

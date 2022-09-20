@@ -30,7 +30,7 @@ class Map:
             self.generate_random()
 
     def generate_random(self):
-        #TODO generate random map
+        #TODO generate random map function
         print("Hi")
 
     def draw(self, screen):

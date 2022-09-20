@@ -19,3 +19,5 @@ toml==0.10.2
 Werkzeug==2.2.2
 wsproto==1.2.0
 selenium~=4.4.3
+easygui~=0.98.3
+PyAutoGUI~=0.9.53
