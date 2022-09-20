@@ -28,11 +28,8 @@ def upload(game_id):
     driver.get("https://itch.io")
     driver.implicitly_wait(0.5)
     
-    #Xpath=//tagname[@attribute='value']
-
-    login_button = driver.find_element(by=By.XPATH, value="//a[@data-label = 'log_in']")
-    login_button.click()
-    driver.implicitly_wait(0.5)
+    #ITCH LOGIN BUTTON
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//a[@data-label = 'log_in']"))).click()
 
     github_login_button = driver.find_element(by=By.XPATH, value="//button[@class = 'button outline github_login_btn']")
     github_login_button.click()
