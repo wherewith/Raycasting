@@ -43,6 +43,7 @@ async def main():
     clock = pygame.time.Clock()
     run = True
     draw_window()
+    game_map.generate(False)
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():

@@ -1,4 +1,5 @@
 import pygame
+import random
 from Named_Colors import *
 
 class Map:
@@ -13,7 +14,7 @@ class Map:
             for y in range(self.map2D[x].__len__()):
                 print(self.map2D[x][y], end=" ")
 
-    def generate(self, default = True):
+    def generate(self, default = True, weight = .5):
         if default:
             self.map2D = \
                 [
@@ -27,11 +28,24 @@ class Map:
                     [1, 1, 1, 1, 1, 1, 1, 1]
                 ]
         else:
-            self.generate_random()
+            self.map2D = self.generate_random(weight)
 
-    def generate_random(self):
-        #TODO generate random map function
-        print("Hi")
+    def generate_random(self, weight):
+        new_map = []
+        for r in range(self.s):
+            new_row = []
+            for c in range(self.s):
+                if r == 0 or c == 0 or r == self.s - 1 or c == self.s - 1:
+                    new_row.append(1)
+                elif r == self.s / 2 and c == self.s / 2:  # starting point
+                    new_row.append(0)
+                else:
+                    possible = [1] + [0]*(int(1/weight)-1) #create ratio
+                    print(possible)
+                    new_row.append(random.choice(possible))
+            new_map.append(new_row)
+        return new_map
+
 
     def draw(self, screen):
         for r in range(self.map2D.__len__()):
